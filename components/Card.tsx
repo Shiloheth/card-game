@@ -6,14 +6,15 @@ import Image from 'next/image'
 export default function Card({setItems,items,image}:any) {
   const [isFlipped, setIsFlipped] = useState(false)
   const [isStatic, setIsStatic] = useState(true)
- 
+
  
   useEffect(() => {
     if(items[items.length-1]===items[items.length-2]&&items[items.length-1]===image){
-   
+      setIsStatic(false)
     }
-
-  }, [items,image]);
+  
+  
+  }, [items,image,setItems]);
 
  
 
@@ -21,7 +22,6 @@ export default function Card({setItems,items,image}:any) {
   
 
    const handleClick = (e:any) => {
-    console.log(items)
     if(isStatic){setIsFlipped(!isFlipped)
     setItems([...items,e.target.alt])
   }

@@ -1,28 +1,41 @@
 'use client'
 
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import Image from 'next/image'
 
 export default function Card({setItems,items,image}:any) {
   const [isFlipped, setIsFlipped] = useState(false)
+  const [isStatic, setIsStatic] = useState(true)
+ 
+ 
+  useEffect(() => {
+    if(items[items.length-1]===items[items.length-2]&&items[items.length-1]===image){
+   
+    }
+
+  }, [items,image]);
+
+ 
 
 
-  const handleClick = (e:any) => {
-    setIsFlipped(!isFlipped)
-    setItems([...items,e.target.src])
+  
+
+   const handleClick = (e:any) => {
     console.log(items)
-  } 
-  if(items.length>2){
-    items[0]===items[1]?console.log('true'):console.log('false')
+    if(isStatic){setIsFlipped(!isFlipped)
+    setItems([...items,e.target.alt])
   }
+  }
+
+
 
   
     return (
-      <div className='flexcard'>
+      <div>
         <div  className={`card ${isFlipped ? 'flipped' : ''}`} onClick={handleClick}>
   <Image
       className='front'
-      alt="card front"
+      alt={image}
       src="/druid___lutece_by_bib0un_d9k3crx.jpg"
       height={300}
       width={300}

@@ -1,9 +1,9 @@
 'use client'
 
-import { useState } from 'react'
+import { useState,useRef } from 'react'
 import Card from '@/components/Card'
 import { imageData } from '@/components/imageData';
-
+import { MutableRefObject } from "react"
 
 
 
@@ -13,31 +13,30 @@ export default function Home() {
   const [items, setItems] = useState<String[]>([]);
   const [images, setImages]= useState<String[]>(imageData());
 
-const handleRandomSelect = () => {
-  if (items.length === 0) {
-    console.log('No more items to select!');
-    return;
-  }
+
+
+
+  if(items[items.length-1]===items[items.length-2]){console.log('ok')}
   
-  const randomIndex = Math.floor(Math.random() * images.length);
-  const selectedItem = images[randomIndex];
 
-  // Remove the selected item from the array
-  const updatedImages = images.filter(item => item !== selectedItem);
-  setImages(updatedImages);
-
-
-};
-
-
-  const result = Array(4).fill(<Card setItems={setItems} items={items} image={images[5]}/>)
+ 
   
-  
+  const result = Array(12).fill('').map((i,idx)=>{
+    const id = idx;
+    
+    return(
+      <Card key={idx} setItems={setItems} items={items} image={images[idx]}/>
+    )
+
+  })
+
+ 
   
   return(
     
       <div className='king'>
         <div className='flexcard'> {result}</div>
+        <button onClick={print}>gdgdbf</button>
       </div>
   
   )

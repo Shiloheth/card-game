@@ -17,11 +17,11 @@
   height: 100%;
   top: 0;
   left: 0;
-  transition: transform 1.5s ease-in-out;
+  transition: transform .5s ease-in-out;
 }
 
 .back {
-  transform: rotateY(180deg);
+  transform: rotateY(-180deg);
 }
 
 .flipped .front {
@@ -34,7 +34,16 @@
 
 
 
-.flexcard{
-  display: flex;
-  flex-direction: row
-}
+
+  .king {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .flexcard {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+  

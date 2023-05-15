@@ -3,41 +3,73 @@
 import { useState,useRef } from 'react'
 import Card from '@/components/Card'
 import { imageData } from '@/components/imageData';
-import { MutableRefObject } from "react"
-
 
 
 
 export default function Home() {
   
-  const [items, setItems] = useState<String[]>([]);
-  const [images, setImages]= useState<String[]>(imageData());
+  const [items, setItems] = useState<ObjectData[]> ([]);
+  const [images, setImages]=  useState (imageData());
 
 
-
-
-  if(items[items.length-1]===items[items.length-2]){console.log('ok')}
+  type ObjectData = {
+    id: number,
+    revealed: boolean,
+    image: string,
+    matched: boolean
+  }
   
-
- 
   
-  const result = Array(12).fill('').map((i,idx)=>{
-    const id = idx;
+  const result:any = Array(12).fill('').map((i,idx) => {
+    return images[idx]
+  }) 
+  
+  const handleClick = (data : any) => {
+
     
-    return(
-      <Card key={idx} setItems={setItems} items={items} image={images[idx]}/>
-    )
+    if(items.length>1)return
+ 
 
-  })
+    if (items.length===0) {
+      const selection = data;
+      selection.revealed=true;
+      setItems([...items,selection]);  
+    }
 
+
+    else if(items.length===1) {
+
+      const selection = data;
+      selection.revealed=true;
+      setItems([...items,selection]);
+      const result = [selection,items[0]];
+      
+      if (result[0].image === result[1].image) {
+        result.forEach((el)=>{el.revealed=true});
+        setItems([]);
+      }
+
+      else {
+        setTimeout(()=>result.forEach((el:any)=>{el.revealed=false;setItems([])}),2000)
+      }
+    
+       
+    }
  
   
+  
+  }
+
+
+
   return(
     
-      <div className='king'>
-        <div className='flexcard'> {result}</div>
-        <button onClick={print}>gdgdbf</button>
+    <div className='king'>
+      <div className='flexcard' >
+        {result.map((el:any,idx:any)=><Card key={el.id} data={...el} image={images[idx]} handleClick={handleClick}/>)}
       </div>
+  
+    </div>
   
   )
 }
